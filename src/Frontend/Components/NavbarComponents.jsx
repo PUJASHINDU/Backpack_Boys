@@ -67,10 +67,16 @@ const NavbarComponents = () => {
         <div className="hidden items-center gap-3 lg:flex">
           {/* Icon Keranjang */}
           <div className="relative">
-            <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-customBlue hover:bg-customBlue hover:text-white transition-all duration-300 shadow-sm hover:shadow-md">
-              <MdShoppingCart className="h-6 w-6" />
-              <span className="font-poppins text-sm">Keranjang</span>
-            </button>
+            <RouterLink to="/Keranjang">
+              <button
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100
+                 text-customBlue hover:bg-customBlue hover:text-white
+                 transition-all duration-300 shadow-sm hover:shadow-md"
+              >
+                <MdShoppingCart className="h-6 w-6" />
+                <span className="font-poppins text-sm">Keranjang</span>
+              </button>
+            </RouterLink>
 
             {/* Badge jumlah item */}
             <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold shadow">
@@ -79,12 +85,12 @@ const NavbarComponents = () => {
           </div>
 
           {/* Tombol Login & Sign Up */}
-          <RouterLink to="/login">
+          <RouterLink to="/Keranjang">
             <Button variant="text" className="font-poppins text-sm text-customBlue">
               Login
             </Button>
           </RouterLink>
-           <RouterLink to="/Registrasi">
+          <RouterLink to="/Registrasi">
             <Button variant="text" className="font-poppins text-sm text-white bg-customBlue">
               Sign Up
             </Button>
@@ -110,18 +116,27 @@ const NavbarComponents = () => {
       <Collapse open={openNav}>
         {navList}
         <div className="flex w-full flex-col gap-y-2 lg:hidden mt-4">
-          {/* Icon keranjang */}
-          <div className="relative">
-            <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-customBlue hover:bg-customBlue hover:text-white transition-all duration-300 shadow-sm hover:shadow-md">
-              <MdShoppingCart className="h-6 w-6" />
-              <span className="font-poppins text-sm">Keranjang</span>
-            </button>
+          {/* Icon Keranjang */}
+          <div className="relative z-50 cursor-pointer">
+            <RouterLink to="/Keranjang">
+              <button
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100
+                 text-customBlue hover:bg-customBlue hover:text-white
+                 transition-all duration-300 shadow-sm hover:shadow-md"
+              >
+                <MdShoppingCart className="h-6 w-6" />
+                <span className="font-poppins text-sm">Keranjang</span>
+              </button>
+            </RouterLink>
 
             {/* Badge jumlah item */}
-            <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold shadow">
+            <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center
+                   rounded-full bg-red-500 text-white text-xs font-bold shadow">
               3
             </span>
           </div>
+
+
 
           {/* Tombol Login & Sign Up */}
 
