@@ -79,9 +79,9 @@ const NavbarComponents = () => {
             </RouterLink>
 
             {/* Badge jumlah item */}
-            <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold shadow">
+            {/* <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold shadow">
               3
-            </span>
+            </span> */}
           </div>
 
           {/* Tombol Login & Sign Up */}
