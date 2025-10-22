@@ -21,13 +21,14 @@ import Gantmaroon from "../assets/Product/Gantmaroon.jpg"
 import Tarion from "../assets/Product/Tarion.jpg"
 import Revendo from "../assets/Product/Revendo.jpg"
 import Tenba from "../assets/Product/Tenba.jpg"
+import { useCart } from "../../context/CartContext.jsx";
 
 
 const products = [
   {
     id: 1,
     title: "PursuitRetro",
-    price: 129.000,
+    price: 129000,
     rating: 4.8,
     category: "Nature & Casual Backpack",
     description:
@@ -41,20 +42,20 @@ const products = [
   {
     id: 2,
     title: "Gant",
-    price: 245.000,
+    price: 245000,
     rating: 4.8,
     category: "Stylis & Casual Backpack",
     description:
       "Minimalist design for daily urban life. Light, durable and stylish.",
     variants: [
-      { name: "Black", color: "#111827", image: [Gantblack]},
-      { name: "Blue", color: "#8B0000", image: [Gantmaroon]},
+      { name: "Black", color: "#111827", image: [Gantblack] },
+      { name: "Blue", color: "#8B0000", image: [Gantmaroon] },
     ],
   },
   {
     id: 3,
     title: "Tenba",
-    price: 129,
+    price: 129000,
     rating: 4.8,
     category: "Casual Backpack",
     description:
@@ -66,19 +67,19 @@ const products = [
   {
     id: 4,
     title: "Revendo",
-    price: 129,
+    price: 129000,
     rating: 4.8,
     category: "Nature & Casual Backpack",
     description:
       "Minimalist design for daily urban life. Light, durable and stylish.",
     variants: [
-      { name: "Black", color: "#111827", image: [Revendo]}
+      { name: "Black", color: "#111827", image: [Revendo] }
     ],
   },
   {
     id: 5,
     title: "Tarion",
-    price: 129,
+    price: 129000,
     rating: 4.8,
     category: "Nature & Casual Backpack",
     description:
@@ -116,12 +117,27 @@ export default function ProductComponents() {
   const handleColorSelect = (productId, index) =>
     setSelectedVariant((prev) => ({ ...prev, [productId]: index }));
 
-  const handleAddToCart = (p) => alert(`Tambah ke keranjang: ${p.title}`);
+  const handleAddToCart = (product) => {
+    const variant = product.variants[selectedVariant[product.id]]; // ambil varian yang sedang dipilih
+    addToCart({
+      id: `${product.id}-${variant.name}`, // unik tiap varian
+      title: product.title,
+      price: product.price,
+      image: Array.isArray(variant.image) ? variant.image[0] : variant.image, // support kalau image berupa array
+      quantity: 1,
+    });
+
+    alert(`${product.title} (${variant.name}) ditambahkan ke keranjang!`);
+  };
+
+
 
   const handleOpenPopup = (p, variant) => {
     setPopupProduct({ ...p, image: variant.image });
     setOpen(true);
   };
+
+  const { addToCart } = useCart();
 
   return (
     <div className="py-12 px-4 bg-blue-gray-50">
@@ -177,8 +193,13 @@ export default function ProductComponents() {
                       {/* Harga & rating */}
                       <div className="flex items-center justify-between mt-2 mb-3">
                         <Typography className="text-lg font-bold text-blue-600 font-poppins">
-                          IDR {product.price}
+                          {product.price.toLocaleString('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR',
+                            minimumFractionDigits: 0,
+                          })}
                         </Typography>
+
                         <StarRating value={product.rating} />
                       </div>
 
@@ -195,11 +216,10 @@ export default function ProductComponents() {
                           <button
                             key={v.name}
                             onClick={() => handleColorSelect(product.id, i)}
-                            className={`w-7 h-7 rounded-full border-2 transition-transform ${
-                              selectedVariant[product.id] === i
-                                ? "border-blue-600 scale-110"
-                                : "border-gray-300"
-                            }`}
+                            className={`w-7 h-7 rounded-full border-2 transition-transform ${selectedVariant[product.id] === i
+                              ? "border-blue-600 scale-110"
+                              : "border-gray-300"
+                              }`}
                             style={{ backgroundColor: v.color }}
                           />
                         ))}
